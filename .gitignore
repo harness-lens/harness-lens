@@ -23,3 +23,6 @@ venv/
 .DS_Store
 .idea/
 .vscode/
+
+# Graphify output
+graphify-out/
