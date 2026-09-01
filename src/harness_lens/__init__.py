@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
 """Public package interface for HarnessLens."""
 
 from importlib.metadata import PackageNotFoundError, version

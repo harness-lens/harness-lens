@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
+[workspace]
+members = [
+  "crates/harness-lens",
+  "crates/harness-lens-core",
+  "crates/harness-lens-cli",
+]
+resolver = "3"
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.85"
+authors = ["Cristian Camargo Filho <ccf@cdone.com.br>"]
+license = "MPL-2.0"
+repository = "https://github.com/harness-lens/harness-lens"
+homepage = "https://github.com/harness-lens/harness-lens"
+
+[workspace.dependencies]
+harness-lens = { version = "0.0.1", path = "crates/harness-lens" }
+harness-lens-core = { version = "0.0.1", path = "crates/harness-lens-core" }
+
+[workspace.lints.rust]
+missing_docs = "warn"
+unsafe_code = "forbid"

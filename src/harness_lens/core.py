@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
 """Minimal harness-file discovery."""
 
 from __future__ import annotations
