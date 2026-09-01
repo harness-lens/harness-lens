@@ -1,3 +1,6 @@
+> SPDX-License-Identifier: MPL-2.0
+> Copyright © 2026 Cristian Camargo Filho
+
 # Publishing HarnessLens
 
 The release workflow uses PyPI Trusted Publishing. It needs no long-lived API token.

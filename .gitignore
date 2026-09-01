@@ -8,6 +8,7 @@ __pycache__/
 # Build artifacts
 build/
 dist/
+rust/target/
 *.egg-info/
 
 # Coverage
