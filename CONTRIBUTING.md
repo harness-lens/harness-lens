@@ -3,17 +3,18 @@
 
 # Contributing
 
-Create a focused branch, add tests for behavior changes, and open a pull request against `develop`.
+Create a focused branch and open a pull request against the owning repository's
+default branch. This hub accepts architecture, provenance, examples, governance,
+and reviewed component-pin updates; implementation changes belong in a component.
 
-```bash
-python -m pip install -e ".[dev]"
-python -m pytest
-cd rust && cargo fmt --all --check
-cd rust && cargo clippy --workspace --all-targets -- -D warnings
-cd rust && cargo test --workspace
-python -m build
-python -m twine check --strict dist/*
-```
+1. Update and test the lowest-level affected repository first.
+2. Pin its commit in dependent manifests and test those repositories.
+3. Update the relevant `modules/*` gitlinks here.
+4. Record external algorithm or design provenance in `docs/prior-art/`.
+
+Clone the composed project with `--recurse-submodules`. Component-specific
+commands live in each repository README. Verify the hub with
+`git submodule status --recursive` and `git diff --check`.
 
 ## Licensing contributions
 

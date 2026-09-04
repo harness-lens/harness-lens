@@ -3,7 +3,8 @@
 
 # Validation rules
 
-Rule identifiers are stable report contracts. The first implementation exposes:
+Rule identifiers are stable report contracts owned by the
+[`core`](https://github.com/harness-lens/core) repository. The first implementation exposes:
 
 | Rule | Status | Evidence |
 | --- | --- | --- |

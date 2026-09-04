@@ -1,55 +1,43 @@
 > SPDX-License-Identifier: MPL-2.0
 > Copyright © 2026 Cristian Camargo Filho
 
-# Publishing HarnessLens
+# Publishing Harness Lens
 
-The release workflow uses PyPI Trusted Publishing. It needs no long-lived API token.
+This umbrella repository is not an artifact publisher. Releases here identify a
+reviewed ecosystem composition: the exact component commits recorded as Git
+submodules. Packages are built and published only by their owning repositories.
 
-## One-time PyPI setup
+| Artifact | Owner | Release documentation |
+| --- | --- | --- |
+| Rust core | [core](https://github.com/harness-lens/core) | repository README/workflows |
+| Rust SDK, config, integrations, Python wheel/sdist | [sdk](https://github.com/harness-lens/sdk) | [publishing guide](https://github.com/harness-lens/sdk/blob/main/docs/publishing.md) |
+| Native and npm CLI | [cli](https://github.com/harness-lens/cli) | [publishing guide](https://github.com/harness-lens/cli/blob/main/docs/publishing.md) |
+| Rust and npm language server | [language-server](https://github.com/harness-lens/language-server) | [publishing guide](https://github.com/harness-lens/language-server/blob/main/docs/publishing.md) |
+| npm VS Code API and VSIX | [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | [publishing guide](https://github.com/harness-lens/harness-lens-vscode/blob/main/docs/publishing.md) |
 
-Create a pending publisher at <https://pypi.org/manage/account/publishing/> with:
+## Release order
 
-- PyPI project name: `harness-lens`
-- GitHub owner: `harness-lens`
-- GitHub repository: `harness-lens`
-- Workflow filename: `publish-to-pypi.yml`
-- Environment name: `pypi`
+1. Publish `harness-lens-core`.
+2. Publish SDK config/integration crates, then the Rust SDK and Python package.
+3. Publish the CLI and language server.
+4. Package and publish the VS Code extension against reviewed server binaries.
+5. Update all hub gitlinks to the released commits and create an umbrella GitHub
+   release describing the compatible set.
 
-The pending publisher creates the PyPI project during the first successful release.
+The existing TypeScript implementations retain their own npm order: core before
+SDK, CLI, and language server; the reusable VS Code package before the extension.
 
-## One-time GitHub setup
+## Trust controls
 
-1. In **Settings > Environments**, create the `pypi` environment.
-2. Add required reviewers so every production publish needs approval.
-3. Enable private vulnerability reporting in **Settings > Security**.
-4. Protect `main`; require pull requests and these status checks:
-   - `Python 3.10`
-   - `Python 3.14`
-   - `Rust quality`
-   - `Build distribution`
-   - `Analyze (actions)`
-   - `Analyze (python)`
+- Use registry trusted publishing/OIDC where supported; do not store long-lived
+  publication tokens in repositories.
+- Protect npm, PyPI, crates.io, and Marketplace releases with repository
+  environments and required review.
+- Attach checksums, provenance, and an SBOM to production native releases.
+- Never publish from this hub to work around a failed component check.
+- Treat registry versions as immutable and update all downstream pins after any
+  rewritten/squashed source commit.
 
-Do not create a `PYPI_API_TOKEN` secret. The publish job requests a short-lived OIDC token through its `id-token: write` permission.
-
-## Release
-
-1. Update `version` in `pyproject.toml` and `workspace.package.version` in
-   `rust/Cargo.toml`, then refresh `rust/Cargo.lock`.
-2. Merge the release commit into `main`.
-3. Create a GitHub release tagged with the same version, such as `v0.0.1`.
-4. Publish the GitHub release.
-5. Approve the `pypi` environment deployment.
-6. Verify <https://pypi.org/project/harness-lens/> and run:
-
-```bash
-python -m pip install harness-lens
-harness-lens --version
-```
-
-PyPI versions are immutable. Increment the version before every later release.
-
-The release workflow builds Python 3.10 stable-ABI wheels on Linux, macOS, and
-Windows plus one source distribution. Wheel builds use Maturin's PyPI
-compatibility check; publication uses the protected `pypi` environment and
-short-lived OIDC credentials.
+See the [repository split](repository-split.md) for current dependency pins and
+merge order, and the [registry map](registry-and-administration.md) for ownership
+and administration checks.

@@ -3,7 +3,8 @@
 
 # Examples
 
-Build/install the mixed Rust/Python package, then run:
+Build/install the mixed Rust/Python package from the
+[`sdk`](https://github.com/harness-lens/sdk) repository, then run from this hub:
 
 ```bash
 harness-lens . --config examples/harness-lens.toml --json

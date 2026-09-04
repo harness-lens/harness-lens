@@ -1,27 +1,20 @@
-# Bytecode and caches
+# Example and documentation caches
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.mypy_cache/
-.ruff_cache/
 
-# Build artifacts
+# Local artifacts
 build/
 dist/
-rust/target/
 *.egg-info/
+rust/target/
 src/harness_lens/_native.*.so
 src/harness_lens/_native.*.pyd
 src/harness_lens/_native.dylib
 
-# Coverage
-.coverage
-htmlcov/
-
 # Virtual environments and local configuration
 .env
 .venv/
-venv/
 
 # Editors and operating systems
 .DS_Store

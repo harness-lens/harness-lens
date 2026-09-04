@@ -3,18 +3,6 @@
 
 version: 2
 updates:
-  - package-ecosystem: cargo
-    directory: "/rust"
-    schedule:
-      interval: monthly
-    labels: [dependencies, rust]
-
-  - package-ecosystem: pip
-    directory: "/"
-    schedule:
-      interval: monthly
-    labels: [dependencies, python]
-
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
