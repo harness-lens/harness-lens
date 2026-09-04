@@ -11,10 +11,20 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    name: Build distribution
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  wheels:
+    name: Wheel (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            interpreter: python3.10
+          - os: macos-latest
+            interpreter: python
+          - os: windows-latest
+            interpreter: python
 
     steps:
       - name: Checkout repository
@@ -25,29 +35,77 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: "3.14"
-          cache: pip
+          python-version: "3.10"
 
-      - name: Install build tools
-        run: python -m pip install --disable-pip-version-check build twine
+      - name: Build stable-ABI wheel
+        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        with:
+          command: build
+          args: --release --locked --compatibility pypi -i ${{ matrix.interpreter }} --out dist
+          manylinux: "2_17"
+          maturin-version: v1.15.0
 
-      - name: Build wheel and source distribution
-        run: python -m build
-
-      - name: Validate distribution metadata
-        run: python -m twine check --strict dist/*
-
-      - name: Store distributions
+      - name: Store wheel
         uses: actions/upload-artifact@v7
         with:
-          name: python-package-distributions
-          path: dist/
+          name: python-wheel-${{ matrix.os }}
+          path: dist/*.whl
           if-no-files-found: error
           retention-days: 1
 
+  sdist:
+    name: Source distribution
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Build source distribution
+        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        with:
+          command: sdist
+          args: --manifest-path rust/crates/harness-lens-python/Cargo.toml --out dist
+          maturin-version: v1.15.0
+
+      - name: Store source distribution
+        uses: actions/upload-artifact@v7
+        with:
+          name: python-sdist
+          path: dist/*.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
+  validate:
+    name: Validate distributions
+    needs: [wheels, sdist]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+
+      - name: Download distributions
+        uses: actions/download-artifact@v8
+        with:
+          pattern: python-*
+          path: dist/
+          merge-multiple: true
+
+      - name: Validate distribution metadata
+        run: |
+          python -m pip install --disable-pip-version-check twine
+          python -m twine check --strict dist/*
+
   publish:
     name: Publish to PyPI
-    needs: build
+    needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
@@ -60,8 +118,9 @@ jobs:
       - name: Download distributions
         uses: actions/download-artifact@v8
         with:
-          name: python-package-distributions
+          pattern: python-*
           path: dist/
+          merge-multiple: true
 
       - name: Publish distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

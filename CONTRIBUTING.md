@@ -8,6 +8,9 @@ Create a focused branch, add tests for behavior changes, and open a pull request
 ```bash
 python -m pip install -e ".[dev]"
 python -m pytest
+cd rust && cargo fmt --all --check
+cd rust && cargo clippy --workspace --all-targets -- -D warnings
+cd rust && cargo test --workspace
 python -m build
 python -m twine check --strict dist/*
 ```

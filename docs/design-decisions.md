@@ -4,6 +4,10 @@
 
 # Base
 
+> The crate boundaries in [architecture.md](architecture.md) supersede the
+> early single-crate directory sketch below. The pipeline and evidence model
+> remain design inputs.
+
 ```text
 descobrir → carregar → normalizar → validar → medir → registrar → comparar → exibir
 ```
@@ -113,6 +117,7 @@ Exemplos:
 PASS  HL001  Harness file found
 PASS  HL006  Valid UTF-8
 PASS  HL014  Testing instructions present
+WARN  HL020  Exact opposite strong instruction
 WARN  HL021  Ambiguous instruction
 WARN  HL027  Referenced command was not found
 FAIL  HL031  Conflicting instructions

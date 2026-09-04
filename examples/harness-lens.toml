@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
+version = 1
+
+[discovery]
+file_names = ["AGENTS.md", "CLAUDE.md", "GEMINI.md"]
+path_suffixes = [".github/copilot-instructions.md"]
+directory_suffixes = [".cursor/rules"]
+max_file_bytes = 1048576
+max_files = 1000000
+follow_symlinks = false
+
+[[plugins]]
+id = "harness-lens.inventory"
+enabled = true
+
+[[plugins]]
+id = "harness-lens.repetition"
+enabled = true
+
+[[plugins]]
+id = "harness-lens.incongruence"
+enabled = true
+
+[[integrations]]
+id = "harness-score"
+enabled = false

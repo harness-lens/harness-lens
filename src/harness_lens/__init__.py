@@ -5,11 +5,11 @@
 
 from importlib.metadata import PackageNotFoundError, version
 
-from harness_lens.core import discover
+from harness_lens.core import discover, native_available, scan
 
 try:
     __version__ = version("harness-lens")
 except PackageNotFoundError:  # pragma: no cover - source tree without installation
     __version__ = "0.0.0"
 
-__all__ = ["__version__", "discover"]
+__all__ = ["__version__", "discover", "native_available", "scan"]

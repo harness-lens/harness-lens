@@ -3,10 +3,13 @@
 
 # harness-lens-cli
 
-Headless command-line boundary for Harness Lens.
+Headless command-line adapter for Harness Lens. It loads `harness-lens.toml`,
+runs the Rust SDK scanner, and renders human-readable or JSON reports.
 
-Version `0.0.1` reserves the executable interface and reports bootstrap status;
-filesystem scanning commands will arrive with the extracted Rust engine.
+```bash
+harness-lens .
+harness-lens . --config harness-lens.toml --json
+```
 
 ## License
 

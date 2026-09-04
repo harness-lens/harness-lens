@@ -10,6 +10,9 @@ build/
 dist/
 rust/target/
 *.egg-info/
+src/harness_lens/_native.*.so
+src/harness_lens/_native.*.pyd
+src/harness_lens/_native.dylib
 
 # Coverage
 .coverage
@@ -24,3 +27,6 @@ venv/
 .DS_Store
 .idea/
 .vscode/
+
+# Local codebase analysis artifacts
+graphify-out/

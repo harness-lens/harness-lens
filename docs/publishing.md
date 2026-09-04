@@ -25,6 +25,7 @@ The pending publisher creates the PyPI project during the first successful relea
 4. Protect `main`; require pull requests and these status checks:
    - `Python 3.10`
    - `Python 3.14`
+   - `Rust quality`
    - `Build distribution`
    - `Analyze (actions)`
    - `Analyze (python)`
@@ -33,7 +34,8 @@ Do not create a `PYPI_API_TOKEN` secret. The publish job requests a short-lived 
 
 ## Release
 
-1. Update `version` in `pyproject.toml`.
+1. Update `version` in `pyproject.toml` and `workspace.package.version` in
+   `rust/Cargo.toml`, then refresh `rust/Cargo.lock`.
 2. Merge the release commit into `main`.
 3. Create a GitHub release tagged with the same version, such as `v0.0.1`.
 4. Publish the GitHub release.
@@ -46,3 +48,8 @@ harness-lens --version
 ```
 
 PyPI versions are immutable. Increment the version before every later release.
+
+The release workflow builds Python 3.10 stable-ABI wheels on Linux, macOS, and
+Windows plus one source distribution. Wheel builds use Maturin's PyPI
+compatibility check; publication uses the protected `pypi` environment and
+short-lived OIDC credentials.

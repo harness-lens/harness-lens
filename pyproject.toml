@@ -2,8 +2,8 @@
 # Copyright © 2026 Cristian Camargo Filho
 
 [build-system]
-requires = ["setuptools>=77"]
-build-backend = "setuptools.build_meta"
+requires = ["maturin>=1.15,<2"]
+build-backend = "maturin"
 
 [project]
 name = "harness-lens"
@@ -38,6 +38,7 @@ test = [
 ]
 dev = [
   "build>=1.3",
+  "maturin>=1.15,<2",
   "pytest>=8,<10",
   "twine>=6",
 ]
@@ -51,12 +52,13 @@ Documentation = "https://github.com/harness-lens/harness-lens#readme"
 Issues = "https://github.com/harness-lens/harness-lens/issues"
 Repository = "https://github.com/harness-lens/harness-lens"
 
-[tool.setuptools]
-package-dir = { "" = "src" }
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.maturin]
+manifest-path = "rust/crates/harness-lens-python/Cargo.toml"
+python-source = "src"
+module-name = "harness_lens._native"
+bindings = "pyo3"
 
 [tool.pytest.ini_options]
 addopts = "-q"
+pythonpath = ["src"]
 testpaths = ["tests"]
