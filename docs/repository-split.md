@@ -12,9 +12,9 @@ both a maintenance guide and an audit trail for why each boundary exists.
 | Former path in this repository | Owning repository/path | Migration PR | Pinned commit |
 | --- | --- | --- | --- |
 | `rust/crates/harness-lens-core` | `core/rust` | [core#4](https://github.com/harness-lens/core/pull/4) | [`fef8ef34`](https://github.com/harness-lens/core/commit/fef8ef34a0ab16ca9cea93ad7e35e63e57c52ccf) |
-| `rust/crates/harness-lens`, `harness-lens-config`, `harness-lens-python`, `harness-lens-adapter-harness-score`; `src/harness_lens`; `tests` | `sdk/rust`, `sdk/src/harness_lens`, `sdk/tests` | [sdk#4](https://github.com/harness-lens/sdk/pull/4) | [`d3131075`](https://github.com/harness-lens/sdk/commit/d31310754a7b791a4dedc0447eb3441d7219bd38) |
-| `rust/crates/harness-lens-cli` | `cli/rust` | [cli#5](https://github.com/harness-lens/cli/pull/5) | [`e757fd41`](https://github.com/harness-lens/cli/commit/e757fd4196a476e9d29c4fcd0561c6409071bca2) |
-| `rust/crates/harness-lens-lsp` | `language-server/rust` | [language-server#5](https://github.com/harness-lens/language-server/pull/5) | [`16ffcd69`](https://github.com/harness-lens/language-server/commit/16ffcd6951ba6886643324f9ddf1573838da85cb) |
+| `rust/crates/harness-lens`, `harness-lens-config`, `harness-lens-python`, `harness-lens-adapter-harness-score`; `src/harness_lens`; `tests` | `sdk/rust`, `sdk/src/harness_lens`, `sdk/tests` | [sdk#4](https://github.com/harness-lens/sdk/pull/4) | [`9b6dd078`](https://github.com/harness-lens/sdk/commit/9b6dd0784d49c3d6d11d902e9d54139a01196d77) |
+| `rust/crates/harness-lens-cli` | `cli/rust` | [cli#5](https://github.com/harness-lens/cli/pull/5) | [`86b57714`](https://github.com/harness-lens/cli/commit/86b5771435c226be606c9ae5a91c1f8715cb748a) |
+| `rust/crates/harness-lens-lsp` | `language-server/rust` | [language-server#5](https://github.com/harness-lens/language-server/pull/5) | [`a5cd63bf`](https://github.com/harness-lens/language-server/commit/a5cd63bf8d0ce84b336baade9c0e0d49ec83b904) |
 | planned VS Code client | `harness-lens-vscode/packages/extension` | [harness-lens-vscode#7](https://github.com/harness-lens/harness-lens-vscode/pull/7) | [`84a29f3f`](https://github.com/harness-lens/harness-lens-vscode/commit/84a29f3fd30cb1bec1912cef8369ac845466357a) |
 
 The target repositories already contained useful TypeScript packages. The split
