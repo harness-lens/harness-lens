@@ -15,5 +15,8 @@ readme = "README.md"
 keywords = ["harness", "agents", "configuration", "snapshots"]
 publish = true
 
+[dependencies]
+serde.workspace = true
+
 [lints]
 workspace = true

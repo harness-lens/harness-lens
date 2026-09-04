@@ -3,11 +3,17 @@
 
 # harness-lens-core
 
-Core domain vocabulary for Harness Lens scanning, resolution, snapshots, and
-comparison.
+Provider-neutral domain and analysis engine for Harness Lens. It owns source and
+finding models, normalized evidence scores, category-aware aggregation,
+deterministic statistical helpers, plugin contracts, report-sink contracts, and
+failure-isolated orchestration.
 
-Version `0.0.1` establishes the reusable Rust boundary while the implementation
-is extracted from the application. It does not read files or execute agents.
+Built-in text plugins report deterministic adjacent repetition and conservative,
+explicitly heuristic opposite-modal instructions. Findings carry UTF-8 byte
+spans so protocol adapters can convert positions without coupling core to LSP.
+
+It does not read files, parse TOML, call networks, execute agents, import model
+providers, or know about Python and editors. Hosts inject those behaviors.
 
 ## License
 

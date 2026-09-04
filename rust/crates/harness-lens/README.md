@@ -3,11 +3,14 @@
 
 # harness-lens
 
-Reusable Rust facade for Harness Lens, a local-first tool for inspecting the
-configuration that can affect coding-agent workspaces.
+Reusable Rust SDK for Harness Lens. It combines the generic engine with a safe
+filesystem adapter, repository-local configuration resolution, and first-party
+deterministic plugins.
 
-Version `0.0.1` exposes the initial domain vocabulary and does not claim a
-production-ready scanner API.
+Use `discover()` for content-free path discovery or `Scanner::scan()` for a
+complete evidence-bearing report. Add analyzers through `Scanner::register_plugin`.
+`discover_detailed()` exposes incomplete-scan reasons, and
+`Scanner::scan_with_overrides()` safely analyzes unsaved editor buffers.
 
 ## License
 

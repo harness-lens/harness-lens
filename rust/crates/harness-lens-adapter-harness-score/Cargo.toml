@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
+[package]
+name = "harness-lens-adapter-harness-score"
+description = "Transport-neutral Harness Score adapter for Harness Lens reports"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "README.md"
+keywords = ["harness", "score", "integration", "reports"]
+publish = true
+
+[dependencies]
+harness-lens-core.workspace = true
+serde.workspace = true
+
+[lints]
+workspace = true

@@ -16,6 +16,7 @@ keywords = ["harness", "agents", "devtools", "local-first"]
 publish = true
 
 [dependencies]
+harness-lens-config.workspace = true
 harness-lens-core.workspace = true
 
 [lints]

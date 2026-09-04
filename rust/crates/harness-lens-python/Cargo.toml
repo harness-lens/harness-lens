@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright © 2026 Cristian Camargo Filho
+
+[package]
+name = "harness-lens-python"
+description = "PyO3 bindings for the Harness Lens Rust SDK"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[lib]
+name = "_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+harness-lens.workspace = true
+pyo3.workspace = true
+serde_json.workspace = true
+
+[lints]
+workspace = true

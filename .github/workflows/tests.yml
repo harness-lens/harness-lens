@@ -14,6 +14,34 @@ permissions:
   contents: read
 
 jobs:
+  rust:
+    name: Rust quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Check formatting
+        working-directory: rust
+        run: cargo fmt --all --check
+
+      - name: Lint all targets
+        working-directory: rust
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: Test workspace
+        working-directory: rust
+        run: cargo test --workspace --locked
+
   tests:
     name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
