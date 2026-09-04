@@ -3,8 +3,10 @@
 
 # Language server
 
-The implemented `harness-lens-lsp` crate is a thin presentation adapter over the
-same SDK and core used by Python and the CLI. It speaks Language Server Protocol
+The implemented [`harness-lens-lsp`](https://github.com/harness-lens/language-server)
+crate is a thin presentation adapter over the same
+[SDK](https://github.com/harness-lens/sdk) and
+[core](https://github.com/harness-lens/core) used by Python and the CLI. It speaks Language Server Protocol
 over standard input/output and publishes ordinary diagnostics. It contains no
 validation rules.
 
@@ -32,15 +34,17 @@ Repository-local `harness-lens.toml` controls discovery and plugin activation.
 For development:
 
 ```bash
-cd rust
-cargo run -p harness-lens-lsp
+git clone https://github.com/harness-lens/language-server.git
+cd language-server/rust
+cargo run
 ```
 
 An editor client should launch `harness-lens-lsp`, use standard input/output as
 the transport, and activate for configured harness paths (`AGENTS.md`,
 `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, and
-`.cursor/rules/**` by default). The future `harness-lens-vscode` package should
-do only this lifecycle and selector work.
+`.cursor/rules/**` by default). The
+[`harness-lens-vscode`](https://github.com/harness-lens/harness-lens-vscode)
+extension implements this lifecycle and selector work.
 
 No Error Lens-specific API is required. Error Lens observes VS Code diagnostics
 and adds its line highlight, gutter marker, and end-of-line message. Harness Lens
@@ -49,7 +53,7 @@ supplies accurate ranges, warning severity, stable codes `HL010` and `HL020`, an
 
 ## Durable next steps
 
-- package and launch the binary from `harness-lens-vscode`;
+- package native language-server binaries for extension installation;
 - debounce rapid document changes and cache unchanged loaded sources;
 - respond to dynamic workspace-folder changes;
 - add rule documentation and code actions without moving analysis into the editor;

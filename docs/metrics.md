@@ -21,7 +21,7 @@ also increment `safety_violations`.
 
 ## Statistical building blocks
 
-The Rust core exposes deterministic functions for population summaries,
+The [Rust core](https://github.com/harness-lens/core/tree/main/rust) exposes deterministic functions for population summaries,
 Bernoulli outcome consistency, resource consistency, Brier score/probability
 accuracy, and a Beta-Binomial probability estimate. Callers must retain raw
 measurements, sample size, and declared assumptions. The Beta interval is a

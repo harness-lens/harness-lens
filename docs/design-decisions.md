@@ -4,9 +4,9 @@
 
 # Base
 
-> The crate boundaries in [architecture.md](architecture.md) supersede the
-> early single-crate directory sketch below. The pipeline and evidence model
-> remain design inputs.
+> The cross-repository boundaries in [architecture.md](architecture.md) and
+> [repository-split.md](repository-split.md) supersede the early single-crate
+> directory sketch below. The pipeline and evidence model remain design inputs.
 
 ```text
 descobrir → carregar → normalizar → validar → medir → registrar → comparar → exibir
