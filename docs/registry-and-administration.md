@@ -58,12 +58,29 @@ For every repository, review these panels by replacing `REPOSITORY`:
 Apply the review to `harness-lens`, `core`, `cli`, `sdk`, `language-server`,
 and `harness-lens-vscode`.
 
+## Repository split transition
+
+Implementation ownership moved to the five component repositories described in
+[`repository-split.md`](repository-split.md). Before the next publication:
+
+- move the PyPI Trusted Publisher from repository `harness-lens` and workflow
+  `publish-to-pypi.yml` to repository `sdk` with the same workflow name;
+- configure crates.io publication in the repository that owns each crate;
+- keep npm trusted publishers attached to their existing component repositories;
+- publish VSIX/Marketplace artifacts only from `harness-lens-vscode`;
+- remove obsolete publishing environments from this hub after the new owners are
+  verified.
+
+The hub may create GitHub releases that describe compatible gitlink revisions,
+but it must not republish component artifacts.
+
 ## Confirmed control gaps
 
 The public APIs showed these gaps during the 2026-08-28 audit:
 
-- `harness-lens` has the protected `pypi` environment.
-- `core`, `cli`, `sdk`, `language-server`, and `harness-lens-vscode` expose no
+- `harness-lens` has the legacy protected `pypi` environment; recreate and verify
+  it in `sdk` before the next Python release.
+- `core`, `cli`, `sdk`, `language-server`, and `harness-lens-vscode` exposed no
   GitHub environments yet. Create an `npm` environment with required reviewers
   in every repository that publishes npm packages.
 - Create a `marketplace` environment in `harness-lens-vscode` when an automated

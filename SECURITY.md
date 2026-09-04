@@ -9,7 +9,8 @@ HarnessLens is pre-alpha. Security fixes are released only for the latest versio
 
 ## Reporting a vulnerability
 
-Do not open a public issue. Use GitHub's private vulnerability reporting:
+Do not open a public issue. Use private vulnerability reporting in the affected
+component repository. For cross-cutting or uncertain reports, use the hub:
 
 https://github.com/harness-lens/harness-lens/security/advisories/new
 

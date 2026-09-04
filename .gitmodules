@@ -1,0 +1,20 @@
+[submodule "modules/core"]
+	path = modules/core
+	url = https://github.com/harness-lens/core.git
+	branch = main
+[submodule "modules/sdk"]
+	path = modules/sdk
+	url = https://github.com/harness-lens/sdk.git
+	branch = main
+[submodule "modules/cli"]
+	path = modules/cli
+	url = https://github.com/harness-lens/cli.git
+	branch = main
+[submodule "modules/language-server"]
+	path = modules/language-server
+	url = https://github.com/harness-lens/language-server.git
+	branch = main
+[submodule "modules/harness-lens-vscode"]
+	path = modules/harness-lens-vscode
+	url = https://github.com/harness-lens/harness-lens-vscode.git
+	branch = main

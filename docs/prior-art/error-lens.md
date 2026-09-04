@@ -19,7 +19,8 @@ Harness Lens adopts the protocol boundary, not the decoration implementation:
   diagnostics;
 - VS Code, Error Lens, or another client chooses how to render them.
 
-No Error Lens source was copied and Harness Lens does not take an Error Lens or
-VS Code dependency. This keeps the server usable from Neovim, Zed, Emacs, and
-other LSP clients while allowing Error Lens to enhance the VS Code experience.
-Error Lens is MIT-licensed; Harness Lens remains MPL-2.0.
+No Error Lens source was copied, and neither the core nor language server takes
+an Error Lens or VS Code dependency. Only the dedicated VS Code client imports
+VS Code APIs. This keeps the server usable from Neovim, Zed, Emacs, and other
+LSP clients while allowing Error Lens to enhance the VS Code experience. Error
+Lens is MIT-licensed; Harness Lens remains MPL-2.0.

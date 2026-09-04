@@ -3,115 +3,90 @@
 
 # Harness Lens
 
-Harness Lens produces evidence-backed reports about coding-agent harness files,
-configuration, policies, and eventually observed executions. Rust owns the fast,
-deterministic core; Python, CLI, language servers, editors, model providers, and
-reporting products remain adapters.
+Harness Lens is an ecosystem for evidence-backed reports, observability, and
+editor feedback about coding-agent harness files. This repository is the project
+hub: it owns architecture, prior-art decisions, examples, governance, and a
+reproducible composition of the implementation repositories.
 
-## Installation
+## Repositories
 
-```bash
-python -m pip install harness-lens
-```
+| Repository | Ownership | Primary artifacts |
+| --- | --- | --- |
+| [core](https://github.com/harness-lens/core) | provider-neutral contracts, deterministic/heuristic analysis, statistics, plugins, report ports | `harness-lens-core`, `@harness-lens/core` |
+| [sdk](https://github.com/harness-lens/sdk) | filesystem discovery, TOML configuration, Python bindings, Harness Score adapter | `harness-lens`, Python `harness-lens`, `@harness-lens/sdk` |
+| [cli](https://github.com/harness-lens/cli) | terminal behavior and native executable | `harness-lens` binary, `@harness-lens/cli` |
+| [language-server](https://github.com/harness-lens/language-server) | LSP lifecycle, workspace overlays, UTF-16 diagnostics | `harness-lens-lsp`, `@harness-lens/language-server` |
+| [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | VS Code process lifecycle, discovery UX, packaging | `harness-lens.harness-lens`, `@harness-lens/vscode` |
 
-## Usage
-
-Inspect the current repository:
-
-```bash
-harness-lens .
-```
-
-Emit JSON for scripts:
-
-```bash
-harness-lens . --json
-```
-
-Use the Python SDK:
-
-```python
-from harness_lens import discover, scan
-
-files = discover(".")
-report = scan(".")
-print(report["score_summary"])
-```
-
-The preview recognizes:
-
-- `AGENTS.md`
-- `CLAUDE.md`
-- `GEMINI.md`
-- `.github/copilot-instructions.md`
-- files under `.cursor/rules/`
-
-It searches nested repository directories while ignoring common generated and dependency directories.
-
-The Rust core also reports adjacent word repetition (`HL010`) and narrowly
-defined opposite strong instructions (`HL020`). Markdown fenced code is excluded
-from both checks. The language server publishes those findings as standard LSP
-diagnostics:
-
-```bash
-cd rust
-cargo run -p harness-lens-lsp
-```
-
-A thin editor client can launch that process. VS Code's Problems view and
-extensions such as Error Lens can render the diagnostics without analysis logic
-inside the editor extension. See [language server](docs/language-server.md).
-
-## Architecture
+The [`modules/`](modules/) entries are Git submodules pinned to commits tested as
+one ecosystem revision. Cargo dependencies additionally pin their upstream Git
+commits. The `branch = main` hints in `.gitmodules` make deliberate future
+updates possible without weakening the committed pins.
 
 ```text
-CLI / Python / LSP / integrations
-                 SDK
-                Core
+core <- sdk/adapters <- cli
+                    <- language-server <- VS Code
+
+project hub --pins--> every repository
 ```
 
-`harness-lens-core` exposes generic models, normalized evidence scores,
-deterministic statistics, plugin inputs, and report outputs. It has no model
-provider or agent-framework dependency. Maturin builds the PyO3 module
-`harness_lens._native` against the Python 3.10 stable ABI. A pure-Python discovery
-fallback keeps source-tree workflows usable before Rust compilation.
+No core contract depends on OpenAI, Anthropic, Ollama, another model provider,
+or an agent framework. Optional integrations consume generic reports through
+adapters.
 
-See [architecture](docs/architecture.md), [integration boundaries](docs/integrations.md),
-[language server](docs/language-server.md), and the [prior-art notes](docs/prior-art/).
+## Get the composed source
 
-Current proof and operating boundaries are documented in [metrics](docs/metrics.md),
-[validation rules](docs/validation-rules.md), [security policy](SECURITY.md), and
-the runnable [examples](examples/README.md).
+```bash
+git clone --recurse-submodules https://github.com/harness-lens/harness-lens.git
+cd harness-lens
+git submodule status
+```
 
-## Configuration
+For an existing checkout:
 
-Repository-local [`harness-lens.toml`](harness-lens.toml) controls discovery,
-plugins, and integrations. Explicit API/CLI paths override the repository-local
-file. Plugin and integration options stay opaque to core.
+```bash
+git submodule update --init --recursive
+```
+
+Build and installation commands live with the owning repository. Start with the
+[SDK](https://github.com/harness-lens/sdk) for Rust/Python embedding, the
+[CLI](https://github.com/harness-lens/cli) for terminal use, or the
+[VS Code extension](https://github.com/harness-lens/harness-lens-vscode) for
+inline diagnostics.
+
+## What the proof currently covers
+
+- deterministic adjacent-word repetition (`HL010`);
+- deliberately conservative, evidence-labeled instruction incongruence (`HL020`);
+- normalized deterministic, statistical, heuristic, and probabilistic result
+  types with explicit sample/uncertainty metadata;
+- failure-isolated plugins and observable execution records;
+- safe, root-bounded harness-file discovery derived from Harness Score ideas;
+- PyO3/Maturin Python acceleration;
+- standard LSP diagnostics compatible with Problems and Error Lens;
+- a transport-neutral Harness Score report-mapping seam.
+
+See [architecture](docs/architecture.md), [repository split](docs/repository-split.md),
+[validation rules](docs/validation-rules.md), [metrics](docs/metrics.md),
+[integrations](docs/integrations.md), and [prior-art notes](docs/prior-art/).
+
+## Configuration and examples
+
+[`harness-lens.toml`](harness-lens.toml) is this repository's own configuration.
+The reusable example lives at [`examples/harness-lens.toml`](examples/harness-lens.toml).
+Plugin and integration options stay opaque to core and are resolved by the SDK.
+
+The Python example assumes the package from the SDK repository is installed:
+
+```bash
+python examples/python_scan.py .
+```
 
 ## Project status
 
-Version `0.0.1` remains pre-alpha. Rust now implements discovery, safe loading,
-provider-neutral reports, plugin execution observability, normalized scoring,
-deterministic statistical helpers, text diagnostics, and an LSP adapter. History,
-the VS Code launcher, broader validation, and optional AI interpretation remain
-planned.
-
-## Development
-
-```bash
-python3 -m pip install -e ".[dev]"
-python3 -m pytest
-cd rust && cargo test --workspace
-cd rust && cargo fmt --all --check
-cd rust && cargo clippy --workspace --all-targets -- -D warnings
-python3 -m build
-python3 -m twine check --strict dist/*
-```
-
-Release setup lives in [publishing documentation](docs/publishing.md). The
-cross-registry ownership and administration inventory lives in the [registry
-and administration map](docs/registry-and-administration.md).
+Version `0.0.x` remains pre-alpha. Each implementation repository runs and
+publishes its own tests, security checks, packages, and release artifacts. This
+hub does not publish a duplicate crate, wheel, npm package, or extension.
 
 ## License
 
@@ -123,4 +98,5 @@ license. See [LICENSING](LICENSING.md), [COPYRIGHT](COPYRIGHT), and
 
 ## Authors
 
-HarnessLens was created by [cristiancmrg](https://github.com/cristiancmrg) and is maintained with contributions from the HarnessLens community.
+Harness Lens was created by [cristiancmrg](https://github.com/cristiancmrg) and
+is maintained with contributions from the Harness Lens community.
