@@ -9,7 +9,7 @@ both a maintenance guide and an audit trail for why each boundary exists.
 
 ## Migration map
 
-| Former path in this repository | Owning repository/path | Migration PR | Pinned commit |
+| Former path in this repository | Owning repository/path | Migration PR | Initial pinned commit |
 | --- | --- | --- | --- |
 | `rust/crates/harness-lens-core` | `core/rust` | [core#4](https://github.com/harness-lens/core/pull/4) | [`fef8ef34`](https://github.com/harness-lens/core/commit/fef8ef34a0ab16ca9cea93ad7e35e63e57c52ccf) |
 | `rust/crates/harness-lens`, `harness-lens-config`, `harness-lens-python`, `harness-lens-adapter-harness-score`; `src/harness_lens`; `tests` | `sdk/rust`, `sdk/src/harness_lens`, `sdk/tests` | [sdk#4](https://github.com/harness-lens/sdk/pull/4) | [`9b6dd078`](https://github.com/harness-lens/sdk/commit/9b6dd0784d49c3d6d11d902e9d54139a01196d77) |
@@ -22,11 +22,32 @@ preserves them as compatibility implementations instead of deleting published
 npm surfaces. Rust is the reference engine for the new core, SDK, native CLI,
 and language server.
 
+## Composition updates
+
+### Workspace observability — September 5, 2026
+
+The first editor observability slice implements the architecture contract in
+[harness-lens#11](https://github.com/harness-lens/harness-lens/issues/11).
+These revisions were verified in dependency order:
+
+| Component | Capability | Delivery PR | Hub pin |
+| --- | --- | --- | --- |
+| Core | Per-file bytes, estimated tokens, configured input cost, findings, score methods, and plugin execution | [core#14](https://github.com/harness-lens/core/pull/14) | [`4b8f248b`](https://github.com/harness-lens/core/commit/4b8f248b33e6110e581388703046160de56f82f9) |
+| SDK | Content-safe filesystem report adapter used by LSP | [sdk#21](https://github.com/harness-lens/sdk/pull/21) | [`6d927ee1`](https://github.com/harness-lens/sdk/commit/6d927ee1e0fc50a47c47a91f3c007f976f0e49ff) |
+| Language server | Versioned `harnessLens/workspaceReport`, unsaved overlays, and native protocol coverage | [language-server#20](https://github.com/harness-lens/language-server/pull/20), [#21](https://github.com/harness-lens/language-server/pull/21) | [`8f376550`](https://github.com/harness-lens/language-server/commit/8f376550b19b6d5b4be773cd46b34780172d0125) |
+| VS Code | Activity Bar tree, metrics center, per-file navigation, content-free history, and explicit trend method | [harness-lens-vscode#20](https://github.com/harness-lens/harness-lens-vscode/pull/20) | [`e6a94af3`](https://github.com/harness-lens/harness-lens-vscode/commit/e6a94af3b37f32bc3ee81e257c25bbcb4e7990b2) |
+
+Per-file effectiveness and tool-call error, retry, timeout, and cost history are
+not inferred from static findings. The editor marks them unmeasured until Core
+and runtime adapters provide sanitized attributed evidence.
+
 ## Dependency pins
 
-- SDK pins core commit `fef8ef34`.
-- CLI and language server pin SDK commit `d3131075`; that SDK transitively pins
-  core.
+- This composition pins SDK commit `6d927ee1`, which pins Core commit
+  `4b8f248b` for reproducible analysis.
+- The language server pins SDK commit `6d927ee1`.
+- CLI retains its independently verified initial composition pin; this editor
+  slice does not execute or import CLI code.
 - The VS Code client executes `harness-lens-lsp` through standard input/output
   and links to the language-server repository rather than importing analysis.
 - This hub pins every commit above through `modules/*` gitlinks.
