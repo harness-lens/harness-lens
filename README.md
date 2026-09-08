@@ -19,6 +19,13 @@ reproducible composition of the implementation repositories.
 | [cli](https://github.com/harness-lens/cli) | terminal behavior and native executable | `harness-lens` binary, `@harness-lens/cli` |
 | [language-server](https://github.com/harness-lens/language-server) | LSP lifecycle, workspace overlays, UTF-16 diagnostics | `harness-lens-lsp`, `@harness-lens/language-server` |
 | [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | VS Code process lifecycle, discovery UX, packaging | `harness-lens.harness-lens`, `@harness-lens/vscode` |
+| [harness-lens-visualstudio](https://github.com/harness-lens/harness-lens-visualstudio) | Visual Studio lifecycle, host policy, native-server verification, VSIX packaging | Visual Studio VSIX |
+| [homebrew-tap](https://github.com/harness-lens/homebrew-tap) | reviewed macOS formula and installation checks | `harness-lens/tap/harness-lens` |
+
+The language server also consumes the published
+[`harness-metrics` crate](https://docs.rs/crate/harness-metrics/0.0.4) for optional
+CodeBurn aggregate mapping. Its package metadata names a Harness Lens repository
+that is not currently public, so it is not listed as an organization repository.
 
 The [`modules/`](modules/) entries are Git submodules pinned to commits tested as
 one ecosystem revision. Cargo dependencies additionally pin their upstream Git
@@ -26,10 +33,13 @@ commits. The `branch = main` hints in `.gitmodules` make deliberate future
 updates possible without weakening the committed pins.
 
 ```text
-core <- sdk/adapters <- cli
+core <- sdk/adapters <- CLI -> Homebrew tap
                     <- language-server <- VS Code
+                                       <- Visual Studio
 
-project hub --pins--> every repository
+CodeBurn <- harness-metrics <- language-server
+
+project hub --pins--> core / sdk / CLI / language server / VS Code
 ```
 
 No core contract depends on OpenAI, Anthropic, Ollama, another model provider,
@@ -66,11 +76,14 @@ inline diagnostics.
 - safe, root-bounded harness-file discovery derived from Harness Score ideas;
 - PyO3/Maturin Python acceleration;
 - standard LSP diagnostics compatible with Problems and Error Lens;
+- CodeBurn-backed, method-labeled runtime hover, diagnostics, and code lenses;
 - a transport-neutral Harness Score report-mapping seam.
 
-See [architecture](docs/architecture.md), [repository split](docs/repository-split.md),
+See [ecosystem architecture and contributor guide](docs/architecture.md),
+[repository split](docs/repository-split.md),
 [validation rules](docs/validation-rules.md), [metrics](docs/metrics.md),
-[integrations](docs/integrations.md), and [prior-art notes](docs/prior-art/).
+[integrations](docs/integrations.md), [prior-art notes](docs/prior-art/), and the
+[CodeBurn hybrid integration project](docs/projects/codeburn-hybrid/).
 
 ## Configuration and examples
 
