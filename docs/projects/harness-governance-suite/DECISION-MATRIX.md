@@ -132,7 +132,8 @@ score authorizes material implementation or publication.
 | Core graph-contract slice | `5/5/5/5/5/3/5` | 96 | 0.75 | 5 | Ready after baseline/worktree audit; index 14.4 | Critical next foundation |
 | Core policy-decision/completeness slice | `4/5/5/3/4/3/3` | 80 | 0.75 | 3 | Ready after baseline/worktree audit; index 20.0 | Adopt; unlock Inspector |
 | Cross-language conformance bundle and black-box runner | `5/5/5/5/5/2/4` | 92 | 0.50 | 8 | Begin fixtures in Core; split only after two consumers; provisional index 5.75 | Critical testing investment, thin slice first |
-| Internal CLI terminal/TUI library target | `4/4/5/3/3/3/2` | 72 | 0.75 | 3 | Ready as internal extraction; index 18.0 | Adopt internally; no public package yet |
+| Minimal reusable terminal renderer | `4/4/5/3/4/5/5` | 84 | 1.00 | 2 | Completed in CLI with a real consumer, deterministic tests, clean package verification, and `harness-lens-terminal 0.0.1` publication | Complete |
+| Bounded reusable report store | `4/5/5/3/4/5/3` | 84 | 1.00 | 2 | Completed in SDK with immutable writes, portable keys, explicit bounds, clean package verification, and `harness-lens-store 0.0.1` publication | Complete |
 | Shared internal GUI renderer | `4/4/4/4/4/2/2` | 72 | 0.50 | 5 | Wait for second implemented GUI consumer; no index | Retain internal package boundary |
 | Versioned out-of-process plugin protocol | `4/5/4/4/5/1/1` | 74 | 0.25 | 8 | Blocked by external plugin and trust/crash model; no index | Defer package publication |
 | Desktop offline report-viewer proof | `4/4/4/2/3/2/2` | 64 | 0.50 | 8 | Ready only as bounded viewer slice; index 4.0 | Experiment before full app |
@@ -146,8 +147,8 @@ This baseline yields three practical queues:
 
 1. complete Go visibility and `harness-metrics` ownership-continuity/public-source
    actions after explicit approval and selection of a trusted backup owner;
-2. invest in Core graph, Core policy, and thin conformance contracts while
-   extracting terminal/TUI code only as an internal CLI library; and
+2. invest in Core graph, Core policy, and thin conformance contracts; expand the
+   completed terminal/store seeds only through separate bounded decisions; and
 3. gather evidence for Desktop, shared GUI rendering, plugins, and Sankey while
    keeping Patternizer, C/C++, WASM, and registry placeholders out of active
    package publication.

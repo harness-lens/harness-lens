@@ -97,6 +97,13 @@ order are recorded in
 [`MODULARIZATION-HORIZON.md`](MODULARIZATION-HORIZON.md). No placeholder version
 was published.
 
+Later the same day, explicit reusable needs justified two more real artifacts:
+`harness-lens-terminal 0.0.1` from CLI and `harness-lens-store 0.0.1` from SDK.
+Both names were checked live, implemented with useful behavior and tests,
+verified as registry-only packages, merged owner-first, and published. Their
+bounded scope and completion line are recorded in the
+[reusable Cargo seeds plan](../reusable-cargo-seeds/PLAN.md).
+
 The official npm policy says package names are intended for immediate, active
 use and considers packages without genuine function to be squatting. PyPI may
 quarantine spam or policy-violating projects and deleting a project releases
@@ -121,7 +128,7 @@ References:
 | Trace normalizer | SDK | Optional adapter boundary; split only if dependencies and release cadence prove independence |
 | Doctor | CLI | A future `harness-lens doctor` can diagnose installation/configuration without becoming a library |
 | Analyzer | Core/SDK and `scan` | Generic duplicate of the existing product boundary |
-| TUI and shell completions | CLI | Terminal presentation and packaging already belong to CLI |
+| TUI and shell completions | CLI | The terminal renderer is reusable; interactive lifecycle and packaging still belong to CLI |
 | Desktop npm library | Desktop application repository | The app is distributed as signed installers/releases; the controlled npm scope already protects any future internal web package |
 | GitHub Action | Inspector or CLI owner | Package with the real gate/scanner; a badge/action needs no extra registry identity |
 | Cursor, VSCodium, Theia | VS Code extension | Consume the same reviewed VSIX/Open VSX-compatible artifact |

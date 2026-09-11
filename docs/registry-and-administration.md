@@ -18,7 +18,7 @@ webhook secrets in an approved secret manager.
 | GitHub App | `Harness Lens` / `harness-lens` | Registered as a minimal organization-owned app; permissions and webhooks intentionally disabled until an integration service exists | Not public while the app is private | <https://github.com/organizations/harness-lens/settings/apps> |
 | PyPI | `harness-lens` | Public at `0.0.1`; Trusted Publisher active | <https://pypi.org/project/harness-lens/> | <https://pypi.org/manage/project/harness-lens/settings/publishing/> |
 | npm | Scope `@harness-lens` | Active; five packages public at `0.0.1` | <https://www.npmjs.com/org/harness-lens> | <https://www.npmjs.com/settings/harness-lens/packages> |
-| crates.io | Seven Harness Lens crates | Core/SDK/config/adapter at `0.0.2`; CLI/LSP at `0.0.1`; Metrics at `0.0.4`; each owned only by `cristiancmrg` | <https://crates.io/users/cristiancmrg> | Manage with `cargo owner` and the crates.io account settings |
+| crates.io | Nine Harness Lens crates | Core/SDK/config/adapter at `0.0.2`; CLI/LSP/terminal/store at `0.0.1`; Metrics at `0.0.4`; each owned only by `cristiancmrg` | <https://crates.io/users/cristiancmrg> | Manage with `cargo owner` and the crates.io account settings |
 | Visual Studio Marketplace | Publisher `harness-lens` | Active | <https://marketplace.visualstudio.com/publishers/harness-lens> | <https://marketplace.visualstudio.com/manage/publishers/harness-lens> |
 | VS Code Marketplace | `harness-lens.harness-lens` | `0.0.1` validated and unpublished; `0.0.2` Preview prepared and locally verified but not uploaded | <https://marketplace.visualstudio.com/items?itemName=harness-lens.harness-lens> | <https://marketplace.visualstudio.com/manage/publishers/harness-lens> |
 
@@ -30,7 +30,7 @@ The five npm packages are:
 - <https://www.npmjs.com/package/@harness-lens/language-server>
 - <https://www.npmjs.com/package/@harness-lens/vscode>
 
-The seven Harness Lens crates are:
+The nine Harness Lens crates are:
 
 - <https://crates.io/crates/harness-lens-core>
 - <https://crates.io/crates/harness-lens-config>
@@ -38,6 +38,8 @@ The seven Harness Lens crates are:
 - <https://crates.io/crates/harness-lens>
 - <https://crates.io/crates/harness-lens-cli>
 - <https://crates.io/crates/harness-lens-lsp>
+- <https://crates.io/crates/harness-lens-terminal>
+- <https://crates.io/crates/harness-lens-store>
 - <https://crates.io/crates/harness-metrics>
 
 ## GitHub organization panels

@@ -9,12 +9,14 @@ Harness Lens already has the correct large ownership boundaries. Further reuse
 should come from small libraries inside those owning repositories before it
 creates more repositories or global package names.
 
-Three implemented Rust package names received legitimate publication on
+Five implemented Rust package names received legitimate publication on
 2026-09-11:
 
 - `harness-lens-config`;
-- `harness-lens-adapter-harness-score`; and
-- `harness-lens-lsp`.
+- `harness-lens-adapter-harness-score`;
+- `harness-lens-lsp`;
+- `harness-lens-terminal`; and
+- `harness-lens-store`.
 
 They were published only after the existing Rust dependency chain was updated,
 merged owner-first, and verified from clean packages against crates.io.
@@ -27,7 +29,7 @@ merged owner-first, and verified from clean packages against crates.io.
 | TOML parsing and resolution | SDK | `harness-lens-config` crate | Published `0.0.2`; keep inside SDK release train |
 | Filesystem discovery and embeddable scan facade | SDK | `harness-lens` crate, Python `harness-lens`, `@harness-lens/sdk` | Keep as main embedding facade |
 | Harness Score mapping | SDK | `harness-lens-adapter-harness-score` crate | Published `0.0.2`; keep transport-neutral |
-| Native command, output, exit behavior, TUI | CLI | `harness-lens-cli` binary and `@harness-lens/cli` | Extract internal terminal library before considering another public crate |
+| Native command, output, exit behavior, TUI | CLI | `harness-lens-cli` binary, `harness-lens-terminal`, and `@harness-lens/cli` | Published renderer seed `0.0.1`; keep TTY/TUI lifecycle in CLI until separately accepted |
 | Editor-neutral protocol | Language server | `harness-lens-lsp` binary/crate and `@harness-lens/language-server` | Published Rust `0.0.1`; retain protocol position conversion here |
 | Runtime aggregate correlation | Harness Metrics | `harness-metrics` crate | Preserve name, add ownership redundancy, expose restored source |
 | Go report consumption | Go repository | `github.com/harness-lens/go` | Make public and tag reviewed `v0.1.0` after approval |
@@ -42,14 +44,16 @@ Current crates.io artifacts verified on 2026-09-11:
 - `harness-lens-config 0.0.2`;
 - `harness-lens-adapter-harness-score 0.0.2`;
 - `harness-lens 0.0.2`;
-- `harness-lens-cli 0.0.1`; and
-- `harness-lens-lsp 0.0.1`; and
+- `harness-lens-cli 0.0.1`;
+- `harness-lens-lsp 0.0.1`;
+- `harness-lens-terminal 0.0.1`;
+- `harness-lens-store 0.0.1`; and
 - `harness-metrics 0.0.4`.
 
-All seven have one named owner, so continuity needs a trusted backup owner/team.
-The new Core, SDK, config, adapter, and LSP archives carry MPL-2.0 and their
-owning-repository metadata. Older immutable archives retain their original
-license and metadata and are not rewritten.
+All nine have one named owner, so continuity needs a trusted backup owner/team.
+The new Core, SDK, config, adapter, LSP, terminal, and store archives carry
+MPL-2.0 and their owning-repository metadata. Older immutable archives retain
+their original license and metadata and are not rewritten.
 
 The release started because workspace tests used immutable Git revisions while
 clean package verification resolved obsolete crates.io dependencies:
@@ -70,7 +74,12 @@ The completed owner-first release order was:
 3. merge [language-server#32](https://github.com/harness-lens/language-server/pull/32),
    pin SDK, and publish `harness-lens-lsp 0.0.1` from `be825fd4`; and
 4. update CLI's immutable SDK pin and registry requirement, while leaving CLI
-   publication to its supervised release runbook.
+   publication to its supervised release runbook;
+5. merge [sdk#33](https://github.com/harness-lens/sdk/pull/33) and publish
+   `harness-lens-store 0.0.1` from `3202c2e6`; and
+6. merge [cli#57](https://github.com/harness-lens/cli/pull/57), make the CLI
+   consume the renderer, and publish `harness-lens-terminal 0.0.1` from
+   `8e111090`. CLI `0.0.5` remains under its supervised release runbook.
 
 Each registry candidate must be built again from a clean checkout using only
 registry dependencies. Workspace success against Git pins is insufficient.
@@ -97,24 +106,22 @@ export a versioned conformance bundle. Split a repository/package only after at
 least two independent consumers use the same bundle; Go interoperability already
 provides the first external consumer signal.
 
-## Internal-first modules
+## Reusable module status
 
-These modules improve reuse but do not justify global package publication yet.
+Terminal and storage now have bounded public seeds. Other modules remain
+internal or deferred until their evidence changes.
 
 ### Terminal library
 
-Add a library target inside the CLI repository for:
+The CLI repository now publishes a minimal library for:
 
 - argument-independent presentation models;
-- stable text/JSON rendering;
-- terminal width, color, and accessibility policy;
-- TUI state transitions; and
-- snapshot-driven renderer tests.
+- stable text/JSON rendering; and
+- deterministic renderer tests.
 
-The CLI binary, non-interactive terminal output, and TUI consume it. A GUI does
-not: GUIs consume report/protocol contracts. Consider publishing
-`harness-lens-terminal` only after another terminal host needs the API and its
-semver can differ from the CLI release.
+The CLI binary consumes it. TTY detection, terminal width, color, accessibility
+policy, process control, and TUI state remain future CLI work. A GUI consumes
+report/protocol contracts rather than this terminal renderer.
 
 ### Shared GUI renderer
 
@@ -126,10 +133,11 @@ already protects that future name.
 
 ### History and storage
 
-Keep snapshot comparison and storage ports in Core; keep filesystem or SQLite
-implementations in SDK. Split a `harness-lens-store` crate only after profiling
-shows a real backend boundary used by CLI and Desktop. Storage never becomes a
-Core filesystem dependency.
+The SDK repository now publishes `harness-lens-store`, containing a small
+backend-neutral report-store trait and a bounded immutable JSON directory
+implementation. Core remains independent from filesystems. SQLite, retention,
+history queries, migrations, and network backends require measured demand and a
+separate decision.
 
 ### Plugin protocol
 
@@ -144,9 +152,9 @@ works through versioned content-safe messages.
 | Candidate | Current decision | Promotion evidence |
 | --- | --- | --- |
 | `harness-lens-conformance` | Build useful fixtures first | Two consumers, versioned bundle, clean black-box runner |
-| `harness-lens-terminal` | Internal CLI library | Second terminal host and stable renderer API |
+| `harness-lens-terminal` expansion | Renderer seed published | Real need for TTY/color/TUI policy and a bounded follow-up plan |
 | `@harness-lens/renderer` | Internal presentation package | Two GUI hosts consuming same code and release contract |
-| `harness-lens-store` | SDK module | Measured history/query workload and two consumers |
+| `harness-lens-store` expansion | Trait and bounded JSON directory seed published | Measured need for another backend, history/query workload, and a bounded follow-up plan |
 | `harness-lens-plugin-api` | Core module | External plugin, stable protocol, trust/crash boundary |
 | `harness-lens-wasm` | Defer | Browser host that cannot use LSP or native CLI |
 | .NET or Java SDK | Defer | Real non-LSP embedding consumer |
