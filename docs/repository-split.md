@@ -41,20 +41,37 @@ Per-file effectiveness and tool-call error, retry, timeout, and cost history are
 not inferred from static findings. The editor marks them unmeasured until Core
 and runtime adapters provide sanitized attributed evidence.
 
+### Cargo dependency train — September 11, 2026
+
+The Rust packages were released from their owning repositories in dependency
+order. Every package candidate was verified after merge using registry-only
+dependencies; repository builds retain immutable Git pins.
+
+| Component | Published artifact | Delivery PR | Accepted commit |
+| --- | --- | --- | --- |
+| Core | `harness-lens-core 0.0.2` | [core#26](https://github.com/harness-lens/core/pull/26) | [`2a8e916f`](https://github.com/harness-lens/core/commit/2a8e916fcf73cbeb1792358b5726e23472792721) |
+| SDK | `harness-lens-config 0.0.2`, `harness-lens-adapter-harness-score 0.0.2`, `harness-lens 0.0.2` | [sdk#32](https://github.com/harness-lens/sdk/pull/32) | [`c11b8683`](https://github.com/harness-lens/sdk/commit/c11b8683e9c021ee8bc8befb94623ce825146f4b) |
+| Language server | `harness-lens-lsp 0.0.1` | [language-server#32](https://github.com/harness-lens/language-server/pull/32) | [`be825fd4`](https://github.com/harness-lens/language-server/commit/be825fd4ac337b2517086c85fc22a3498cd81ade) |
+| CLI | SDK `0.0.2` consumer pin; no publication | [cli#56](https://github.com/harness-lens/cli/pull/56) | [`b241c817`](https://github.com/harness-lens/cli/commit/b241c817da76738229c56a64bc77e68c7f69aeb5) |
+
+`harness-metrics 0.0.4` remains the published optional runtime adapter consumed
+by LSP. Its restored source and ownership-continuity work are tracked separately;
+no retroactive tag or replacement archive was created.
+
 ## Dependency pins
 
-- This composition pins SDK commit `6d927ee1`, which pins Core commit
-  `4b8f248b` for reproducible analysis.
-- The language server pins SDK commit `6d927ee1`.
-- CLI retains its independently verified initial composition pin; this editor
-  slice does not execute or import CLI code.
+- This composition pins SDK commit `c11b8683`, which pins Core commit
+  `2a8e916f` for reproducible analysis.
+- The language server and CLI pin SDK commit `c11b8683`.
+- CLI publication remains controlled by its independently reviewed supervised
+  release runbook.
 - The VS Code client executes `harness-lens-lsp` through standard input/output
   and links to the language-server repository rather than importing analysis.
 - This hub pins every commit above through `modules/*` gitlinks.
 
-Cargo dependencies include both `version = "0.0.1"` and `git`/`rev`. Repository
-builds therefore use an exact source revision. When packaged, Cargo removes Git
-location data and retains the registry version requirement.
+Cargo dependencies include compatible registry versions and `git`/`rev`.
+Repository builds therefore use exact source revisions. When packaged, Cargo
+removes Git location data and retains the registry version requirements.
 
 ## Merge and release order
 
