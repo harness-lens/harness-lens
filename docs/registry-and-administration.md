@@ -3,7 +3,8 @@
 
 # Registry and administration map
 
-Last audited: 2026-08-28. Cargo inventory re-audited: 2026-09-11.
+Last administrative audit: 2026-08-28. Public package inventory re-audited:
+2026-09-11.
 
 This document records the public Harness Lens identities, their administrative
 entry points, and the remaining namespace and release work. It intentionally
@@ -16,8 +17,8 @@ webhook secrets in an approved secret manager.
 | --- | --- | --- | --- | --- |
 | GitHub | Organization `harness-lens` | Active | <https://github.com/harness-lens> | <https://github.com/organizations/harness-lens/settings/profile> |
 | GitHub App | `Harness Lens` / `harness-lens` | Registered as a minimal organization-owned app; permissions and webhooks intentionally disabled until an integration service exists | Not public while the app is private | <https://github.com/organizations/harness-lens/settings/apps> |
-| PyPI | `harness-lens` | Public at `0.0.1`; Trusted Publisher active | <https://pypi.org/project/harness-lens/> | <https://pypi.org/manage/project/harness-lens/settings/publishing/> |
-| npm | Scope `@harness-lens` | Active; five packages public at `0.0.1` | <https://www.npmjs.com/org/harness-lens> | <https://www.npmjs.com/settings/harness-lens/packages> |
+| PyPI | `harness-lens` | Public at `0.0.1`; `letalboy` is the only visible Owner; Trusted Publisher active | <https://pypi.org/project/harness-lens/> | <https://pypi.org/manage/project/harness-lens/settings/publishing/> |
+| npm | Scope `@harness-lens` | Active; CLI at `0.0.5`, four other packages at `0.0.1`; each lists only `cristiancmrg` as maintainer | <https://www.npmjs.com/org/harness-lens> | <https://www.npmjs.com/settings/harness-lens/packages> |
 | crates.io | Nine Harness Lens crates | Core/SDK/config/adapter at `0.0.2`; CLI/LSP/terminal/store at `0.0.1`; Metrics at `0.0.4`; each owned only by `cristiancmrg` | <https://crates.io/users/cristiancmrg> | Manage with `cargo owner` and the crates.io account settings |
 | Visual Studio Marketplace | Publisher `harness-lens` | Active | <https://marketplace.visualstudio.com/publishers/harness-lens> | <https://marketplace.visualstudio.com/manage/publishers/harness-lens> |
 | VS Code Marketplace | `harness-lens.harness-lens` | `0.0.1` validated and unpublished; `0.0.2` Preview prepared and locally verified but not uploaded | <https://marketplace.visualstudio.com/items?itemName=harness-lens.harness-lens> | <https://marketplace.visualstudio.com/manage/publishers/harness-lens> |
@@ -41,6 +42,9 @@ The nine Harness Lens crates are:
 - <https://crates.io/crates/harness-lens-terminal>
 - <https://crates.io/crates/harness-lens-store>
 - <https://crates.io/crates/harness-metrics>
+
+The cross-registry package, version, owner, and source-repository intersections
+are recorded in the [package registry ownership matrix](package-registry-matrix.md).
 
 ## GitHub organization panels
 

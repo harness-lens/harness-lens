@@ -83,7 +83,8 @@ See [ecosystem architecture and contributor guide](docs/architecture.md),
 [repository split](docs/repository-split.md),
 [validation rules](docs/validation-rules.md), [metrics](docs/metrics.md),
 [integrations](docs/integrations.md), [prior-art notes](docs/prior-art/), and the
-[CodeBurn hybrid integration project](docs/projects/codeburn-hybrid/). Product
+[package registry ownership matrix](docs/package-registry-matrix.md). See also
+the [CodeBurn hybrid integration project](docs/projects/codeburn-hybrid/). Product
 work is admitted and sequenced through the
 [governance-suite decision matrix](docs/projects/harness-governance-suite/DECISION-MATRIX.md).
 
