@@ -13,6 +13,13 @@ ideas, and rejected coupling.
   safety fuses, root-bounded symlinks, and incomplete-scan semantics.
 - [Error Lens](error-lens.md): standard diagnostic publication as the boundary
   between analysis and editor presentation.
+- [CodeBurn](codeburn.md): local aggregate runtime ingestion without copying
+  session parsers, pricing tables, or optimization rules.
+- [Code-aware text regions](code-aware-text-regions.md): proposed Markdown
+  syntax boundaries that preserve prose and whole-file repetition checks.
+- [Weighted decision and execution matrices](weighted-decision-matrices.md):
+  hard gates, evidence-backed weighted value, sensitivity checks, and
+  dependency-aware execution priority.
 
 Each note includes the research date, direct source links, licensing context,
 and intentional differences.

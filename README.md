@@ -15,7 +15,7 @@ reproducible composition of the implementation repositories.
 | Repository | Ownership | Primary artifacts |
 | --- | --- | --- |
 | [core](https://github.com/harness-lens/core) | provider-neutral contracts, deterministic/heuristic analysis, statistics, plugins, report ports | `harness-lens-core`, `@harness-lens/core` |
-| [sdk](https://github.com/harness-lens/sdk) | filesystem discovery, TOML configuration, Python bindings, Harness Score adapter | `harness-lens`, Python `harness-lens`, `@harness-lens/sdk` |
+| [sdk](https://github.com/harness-lens/sdk) | filesystem discovery, TOML configuration, Python bindings, Harness Score adapter | `harness-lens`, `harness-lens-config`, `harness-lens-adapter-harness-score`, Python `harness-lens`, `@harness-lens/sdk` |
 | [cli](https://github.com/harness-lens/cli) | terminal behavior and native executable | `harness-lens` binary, `@harness-lens/cli` |
 | [language-server](https://github.com/harness-lens/language-server) | LSP lifecycle, workspace overlays, UTF-16 diagnostics | `harness-lens-lsp`, `@harness-lens/language-server` |
 | [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | VS Code process lifecycle, discovery UX, packaging | `harness-lens.harness-lens`, `@harness-lens/vscode` |
@@ -83,7 +83,9 @@ See [ecosystem architecture and contributor guide](docs/architecture.md),
 [repository split](docs/repository-split.md),
 [validation rules](docs/validation-rules.md), [metrics](docs/metrics.md),
 [integrations](docs/integrations.md), [prior-art notes](docs/prior-art/), and the
-[CodeBurn hybrid integration project](docs/projects/codeburn-hybrid/).
+[CodeBurn hybrid integration project](docs/projects/codeburn-hybrid/). Product
+work is admitted and sequenced through the
+[governance-suite decision matrix](docs/projects/harness-governance-suite/DECISION-MATRIX.md).
 
 ## Configuration and examples
 
