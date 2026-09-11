@@ -26,3 +26,29 @@ Static analysis is local-first and deterministic. Runtime capture is optional,
 consent-controlled, and never changes deterministic findings or scores. Raw
 source, tool arguments, outputs, transcripts, stderr, secrets, and credentials
 never enter reports.
+
+## Required completion boundary
+
+This plan has an end. Required implementation is complete when:
+
+- steps 00 through 08 in [`04-step-order.md`](04-step-order.md) satisfy their
+  acceptance checks in order;
+- applicable acceptance gates in the
+  [unified plan](../harness-governance-suite/UNIFIED-PLAN.md) pass;
+- owning repository changes are merged and downstream immutable pins are
+  independently verified; and
+- `state/now.md` records no unfinished required slice.
+
+At that point, stop this implementation plan and mark it complete. Step 09 is
+explicitly deferred and does not block completion. New packages, views,
+providers, integrations, or speculative refinements do not become required work
+because they are discovered during implementation.
+
+## Transition after completion
+
+After completion, transition this plan to maintenance: correctness, security,
+compatibility, release integrity, and measured user problems. Any new product
+scope requires its own decision record under the
+[decision matrix](../harness-governance-suite/DECISION-MATRIX.md), explicit
+adoption, and a separate bounded plan. New work does not reopen this completed
+plan automatically.

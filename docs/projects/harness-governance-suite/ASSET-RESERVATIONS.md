@@ -51,6 +51,12 @@ publishing against the reviewed repository. No GitHub team currently exists in
 the organization, so that team and its trusted membership must be created
 deliberately rather than assumed.
 
+Decision on 2026-09-11: do not create a one-member `release-managers` team.
+Giving a team only the existing personal owner adds structure without reducing
+continuity risk. Reconsider the team only after a second trusted maintainer is
+selected with MFA and recovery access; then review membership before adding the
+team as owner of existing crates.
+
 ## Existing controlled identities
 
 The project already controls the GitHub `harness-lens` organization and npm
