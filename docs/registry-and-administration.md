@@ -92,7 +92,9 @@ The public APIs showed these gaps during the 2026-08-28 audit:
   and attaches the VSIX.
 - Each Harness Lens crate currently has only the personal owner
   `cristiancmrg`. Add an organization team owner for continuity after the team
-  and permissions are reviewed.
+  and permissions are reviewed. Do not create a one-member team: it adds no
+  continuity. Reconsider only after a second trusted maintainer with MFA and
+  recovery access is selected.
 - npm Trusted Publisher details, GitHub App credentials, organization recovery
   methods, and Marketplace role assignments are not public. Verify those
   manually in the linked administration panels.
