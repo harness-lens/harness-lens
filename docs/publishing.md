@@ -10,16 +10,16 @@ submodules. Packages are built and published only by their owning repositories.
 | Artifact | Owner | Release documentation |
 | --- | --- | --- |
 | Rust core | [core](https://github.com/harness-lens/core) | repository README/workflows |
-| Rust SDK, config, integrations, Python wheel/sdist | [sdk](https://github.com/harness-lens/sdk) | [publishing guide](https://github.com/harness-lens/sdk/blob/main/docs/publishing.md) |
-| Native and npm CLI | [cli](https://github.com/harness-lens/cli) | [publishing guide](https://github.com/harness-lens/cli/blob/main/docs/publishing.md) |
+| Rust SDK, config, integrations, report store, Python wheel/sdist | [sdk](https://github.com/harness-lens/sdk) | [publishing guide](https://github.com/harness-lens/sdk/blob/main/docs/publishing.md) |
+| Terminal renderer, native and npm CLI | [cli](https://github.com/harness-lens/cli) | [publishing guide](https://github.com/harness-lens/cli/blob/main/docs/publishing.md) |
 | Rust and npm language server | [language-server](https://github.com/harness-lens/language-server) | [publishing guide](https://github.com/harness-lens/language-server/blob/main/docs/publishing.md) |
 | npm VS Code API and VSIX | [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | [publishing guide](https://github.com/harness-lens/harness-lens-vscode/blob/main/docs/publishing.md) |
 
 ## Release order
 
 1. Publish `harness-lens-core`.
-2. Publish SDK config/integration crates, then the Rust SDK and Python package.
-3. Publish the CLI and language server.
+2. Publish SDK config/integration/store crates, then the Rust SDK and Python package.
+3. Publish the terminal renderer before its CLI consumer, and publish the language server.
 4. Package and publish the VS Code extension against reviewed server binaries.
 5. Update all hub gitlinks to the released commits and create an umbrella GitHub
    release describing the compatible set.

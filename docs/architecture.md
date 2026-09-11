@@ -68,9 +68,9 @@ Do not copy a revision from this overview. Read the owning immutable record:
 | --- | --- | --- | --- |
 | Composition | [harness-lens](https://github.com/harness-lens/harness-lens) | this architecture, governance, prior art, examples, compatible component pins | component implementation or duplicate packages |
 | Domain | [core](https://github.com/harness-lens/core) | models, evidence, normalized scores, statistical helpers, plugin/report ports, analysis rules | filesystem, transport, editor, model vendor |
-| Application/adapters | [sdk](https://github.com/harness-lens/sdk) | safe discovery, TOML, Rust/Python/TypeScript facades, integration mappings | terminal or editor presentation |
+| Application/adapters | [sdk](https://github.com/harness-lens/sdk) | safe discovery, TOML, Rust/Python/TypeScript facades, integration mappings, bounded report-store adapters | terminal or editor presentation |
 | Runtime adapter | [`harness-metrics` 0.0.4](https://docs.rs/crate/harness-metrics/0.0.4) | CodeBurn aggregate schema, evidence methods, document correlation | session parsing, pricing rules, raw transcript persistence, LSP presentation |
-| Terminal | [cli](https://github.com/harness-lens/cli) | arguments, output, exit behavior | analysis rules |
+| Terminal | [cli](https://github.com/harness-lens/cli) | arguments, reusable report rendering, output, exit behavior | analysis rules |
 | Protocol | [language-server](https://github.com/harness-lens/language-server) | LSP state, overlays, UTF-8-to-UTF-16 conversion | analysis rules or VS Code APIs |
 | VS Code editor | [harness-lens-vscode](https://github.com/harness-lens/harness-lens-vscode) | server lifecycle, selectors, commands, views, npm/VSIX packaging | duplicate analysis or provider execution without consent |
 | Visual Studio editor | [harness-lens-visualstudio](https://github.com/harness-lens/harness-lens-visualstudio) | Visual Studio lifecycle, host policy, settings, commands, VSIX, pinned native-server bundle | analysis rules or unverified native binaries |
@@ -160,7 +160,9 @@ links. Implementation and pin changes still update the hub last.
 | --- | --- | --- |
 | Finding, score, rule, report model, plugin contract | Core | SDK pin and adapters; CLI/LSP pins; affected editor rendering; hub last |
 | Harness discovery, TOML, Python/PyO3, provider service | SDK | CLI and language server; affected editors; hub last |
+| Report-store contract or local storage backend | SDK | actual consumers and bounds; hub last |
 | Arguments, exit codes, terminal output, native archives | CLI | package-manager generators, Homebrew tap, container, hub last |
+| Reusable terminal renderer | CLI | native CLI consumer, package verification, hub last |
 | LSP lifecycle, custom request, diagnostic mapping | Language server | VS Code and Visual Studio protocol clients; bundled binaries; hub last |
 | VS Code command, view, setting, packaging | VS Code | VSIX/npm release docs and installer tests; hub last |
 | Visual Studio command, setting, lifecycle, packaging | Visual Studio | protocol matrix and pinned native-server records; hub docs if contract changes |
