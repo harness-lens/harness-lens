@@ -89,7 +89,7 @@ uses GitHub OIDC without a classic token or generated `_authToken` placeholder.
 
 | Component | Capability | Delivery PR | Hub pin |
 | --- | --- | --- | --- |
-| VS Code | Unambiguous local npm publication and checksum-verified recovery from existing release assets | [harness-lens-vscode#41](https://github.com/harness-lens/harness-lens-vscode/pull/41), [#42](https://github.com/harness-lens/harness-lens-vscode/pull/42) | [`3e65ff35`](https://github.com/harness-lens/harness-lens-vscode/commit/3e65ff35baa9d8e703f5982ee5b47ddaeffbc54d) |
+| VS Code | Unambiguous local npm publication, checksum-verified recovery, single-use verification runbook, and incident record | [harness-lens-vscode#41](https://github.com/harness-lens/harness-lens-vscode/pull/41), [#42](https://github.com/harness-lens/harness-lens-vscode/pull/42), [#43](https://github.com/harness-lens/harness-lens-vscode/pull/43) | [`da8bc0ad`](https://github.com/harness-lens/harness-lens-vscode/commit/da8bc0ad72c3b8c7526ceb37f96d52ece4ed26b2) |
 
 ## Dependency pins
 
@@ -101,7 +101,7 @@ uses GitHub OIDC without a classic token or generated `_authToken` placeholder.
   continues to consume its independently verified SDK revision.
 - CLI publication remains controlled by its independently reviewed supervised
   release runbook.
-- The VS Code pin `3e65ff35` executes `harness-lens-lsp` through standard
+- The VS Code pin `da8bc0ad` executes `harness-lens-lsp` through standard
   input/output and its release workflow builds immutable language-server
   revision `2b7d66b0` rather than importing analysis. It also recovers npm
   publication only from checksum-verified immutable release assets.
