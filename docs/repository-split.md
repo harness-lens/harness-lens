@@ -60,17 +60,38 @@ dependencies; repository builds retain immutable Git pins.
 by LSP. Its restored source and ownership-continuity work are tracked separately;
 no retroactive tag or replacement archive was created.
 
+### Observed-flow token lens and bounded findings — September 13, 2026
+
+The observed-flow stack now carries optional per-turn token evidence from Core
+through the editor without deriving missing usage from static file estimates.
+The VS Code client adds a synchronized token lens, responsive Sankey layout,
+source navigation, local-history search, and ten-row pagination for history and
+warning/error findings.
+
+All dependency pins below use post-squash commits from the owning repositories.
+Each downstream repository regenerated its lockfiles where applicable and passed
+its independent CI matrix before this hub update.
+
+| Component | Capability | Delivery PR | Hub pin |
+| --- | --- | --- | --- |
+| Core | Validated optional per-turn token usage with explicit measured/estimated provenance and missing-evidence preservation | [core#33](https://github.com/harness-lens/core/pull/33) | [`1f1d4531`](https://github.com/harness-lens/core/commit/1f1d453111f385859d0afe2c8126f2e36cf30938) |
+| SDK | Bounded token timeline aligned to retained observed-flow transitions; post-squash Core repin | [sdk#36](https://github.com/harness-lens/sdk/pull/36), [#37](https://github.com/harness-lens/sdk/pull/37) | [`9af01a3e`](https://github.com/harness-lens/sdk/commit/9af01a3e9480289c6808b583fb632c979748609e) |
+| Language server | Versioned token timeline response, UTF-16 evidence locations, and post-squash SDK/Core pins | [language-server#35](https://github.com/harness-lens/language-server/pull/35), [#36](https://github.com/harness-lens/language-server/pull/36) | [`2b7d66b0`](https://github.com/harness-lens/language-server/commit/2b7d66b0d05961d3556e1cc39fd9f8f56fa7f1b4) |
+| VS Code | Responsive Sankey, synchronized token lens, evidence filenames/navigation, history search/pagination, warning pagination, and immutable release LSP pin | [harness-lens-vscode#37](https://github.com/harness-lens/harness-lens-vscode/pull/37), [#38](https://github.com/harness-lens/harness-lens-vscode/pull/38) | [`25cfc1fb`](https://github.com/harness-lens/harness-lens-vscode/commit/25cfc1fbe193c69824d8af30d3bc4ab50814c86a) |
+
 ## Dependency pins
 
-- This composition pins SDK commit `3202c2e6`, which pins Core commit
-  `2a8e916f` for reproducible analysis and adds the bounded Store seed.
-- The language server and CLI pin SDK commit `c11b8683`.
+- This composition pins Core commit `1f1d4531` and SDK commit `9af01a3e`;
+  the SDK manifest and lockfile pin that same merged Core revision.
+- The language server pin `2b7d66b0` consumes SDK `9af01a3e` and transitively
+  Core `1f1d4531` from regenerated locked dependencies.
 - This composition pins CLI commit `8e111090`, which adds the Terminal seed and
-  consumes it from the native CLI.
+  continues to consume its independently verified SDK revision.
 - CLI publication remains controlled by its independently reviewed supervised
   release runbook.
-- The VS Code client executes `harness-lens-lsp` through standard input/output
-  and links to the language-server repository rather than importing analysis.
+- The VS Code pin `25cfc1fb` executes `harness-lens-lsp` through standard
+  input/output and its release workflow builds immutable language-server
+  revision `2b7d66b0` rather than importing analysis.
 - This hub pins every commit above through `modules/*` gitlinks.
 
 Cargo dependencies include compatible registry versions and `git`/`rev`.
