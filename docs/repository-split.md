@@ -79,6 +79,18 @@ its independent CI matrix before this hub update.
 | Language server | Versioned token timeline response, UTF-16 evidence locations, and post-squash SDK/Core pins | [language-server#35](https://github.com/harness-lens/language-server/pull/35), [#36](https://github.com/harness-lens/language-server/pull/36) | [`2b7d66b0`](https://github.com/harness-lens/language-server/commit/2b7d66b0d05961d3556e1cc39fd9f8f56fa7f1b4) |
 | VS Code | Responsive Sankey, synchronized token lens, evidence filenames/navigation, history search/pagination, warning pagination, and immutable release LSP pin | [harness-lens-vscode#37](https://github.com/harness-lens/harness-lens-vscode/pull/37), [#38](https://github.com/harness-lens/harness-lens-vscode/pull/38) | [`25cfc1fb`](https://github.com/harness-lens/harness-lens-vscode/commit/25cfc1fbe193c69824d8af30d3bc4ab50814c86a) |
 
+### npm release recovery — September 14, 2026
+
+VS Code release `0.0.5` retained its immutable GitHub assets while npm
+publication was recovered independently. The owning repository now treats npm
+tarballs as explicit local files, verifies every release asset against
+`SHA256SUMS`, and supports a registry-only recovery path. npm trusted publishing
+uses GitHub OIDC without a classic token or generated `_authToken` placeholder.
+
+| Component | Capability | Delivery PR | Hub pin |
+| --- | --- | --- | --- |
+| VS Code | Unambiguous local npm publication and checksum-verified recovery from existing release assets | [harness-lens-vscode#41](https://github.com/harness-lens/harness-lens-vscode/pull/41), [#42](https://github.com/harness-lens/harness-lens-vscode/pull/42) | [`3e65ff35`](https://github.com/harness-lens/harness-lens-vscode/commit/3e65ff35baa9d8e703f5982ee5b47ddaeffbc54d) |
+
 ## Dependency pins
 
 - This composition pins Core commit `1f1d4531` and SDK commit `9af01a3e`;
@@ -89,9 +101,10 @@ its independent CI matrix before this hub update.
   continues to consume its independently verified SDK revision.
 - CLI publication remains controlled by its independently reviewed supervised
   release runbook.
-- The VS Code pin `25cfc1fb` executes `harness-lens-lsp` through standard
+- The VS Code pin `3e65ff35` executes `harness-lens-lsp` through standard
   input/output and its release workflow builds immutable language-server
-  revision `2b7d66b0` rather than importing analysis.
+  revision `2b7d66b0` rather than importing analysis. It also recovers npm
+  publication only from checksum-verified immutable release assets.
 - This hub pins every commit above through `modules/*` gitlinks.
 
 Cargo dependencies include compatible registry versions and `git`/`rev`.
